@@ -1,7 +1,3 @@
-Tentu, berikut adalah draf isi untuk file `README.md` proyek "Cyber Memory" Anda. Saya telah menyusunnya agar informatif, menarik, dan mudah dipahami, dengan fokus pada fitur, instalasi, dan tujuan proyek.
-
------
-
 # Cyber Memory: Uji Ketajaman Memori Cyberpunk Anda\! 🧠⚡
 
 [](https://opensource.org/licenses/MIT)
@@ -60,10 +56,10 @@ Proyek ini sangat mudah untuk dijalankan. Anda tidak memerlukan server atau inst
 
     ```bash
     # Contoh perintah untuk Linux/macOS
-    open index.html
+    open cyber-memory.html
 
     # Contoh perintah untuk Windows
-    start index.html
+    start cyber-memory.html
     ```
 
 Anda kini siap untuk bermain\!
