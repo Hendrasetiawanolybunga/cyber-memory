@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Cyber Memory adalah game memori cyberpunk yang menantang. Uji kecepatan dan ketajaman pikiran Anda dengan mencocokkan ikon siber dalam batas waktu. Mainkan sekarang dan taklukkan setiap level!">
+    <meta name="keywords"
+        content="game memori, permainan memori, game cyberpunk, cyber memory, asah otak, permainan edukasi, tantangan memori, game online gratis">
+    <meta name="author" content="Tim Cyber Memory">
+    <meta property="og:title" content="Cyber Memory: Uji Ketajaman Memori Cyberpunk Anda!">
+    <meta property="og:description"
+        content="Tantang diri Anda dengan game memori bertema cyberpunk ini! Cocokkan ikon-ikon siber sebelum waktu habis.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.yourwebsite.com/cyber-memory"> <meta property="og:image" content="https://www.yourwebsite.com/images/cyber-memory-thumbnail.jpg">
+    <meta property="og:locale" content="id_ID">
+
+    <title>Cyber Memory: Game Memori Cyberpunk | Asah Otak Anda</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto+Mono&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ====== CYBER MEMORY: CSS ====== */
+        :root {
+            /* Definisi variabel CSS untuk kemudahan perubahan tema */
+            --primary-neon: #4ffbdf;
+            --secondary-neon: #00fff7;
+            --dark-bg: #0f0c29;
+            --mid-bg: #302b63;
+            --card-bg: #1a1a2e;
+            --card-front-border: #4ffbdf;
+            --card-back-gradient-start: #23234a;
+            --card-back-gradient-end: #4ffbdf22;
+            --text-color: #fff;
+            --shadow-primary: #4ffbdf44;
+            --shadow-secondary: #000a;
+            --shadow-card-hover: #4ffbdfcc;
+            --shadow-card-hover-light: #fff2;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            /* Prioritaskan font cyberpunk, fallback ke sans-serif */
+            font-family: 'Orbitron', 'Segoe UI', 'Roboto', Arial, sans-serif;
+            background: linear-gradient(135deg, var(--dark-bg) 0%, var(--mid-bg) 100%);
+            position: relative;
+            overflow-x: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            /* Tambahkan sedikit padding untuk mobile */
+            box-sizing: border-box;
+            /* Pastikan padding tidak membuat overflow */
+        }
+
+        /* Neon circuit pattern overlay - SVG dinamis lebih baik dari data URI statis */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            /* Menggunakan inline SVG atau properti background-image */
+            background-image: url("data:image/svg+xml,%3Csvg width='100%25' height='100%25' viewBox='0 0 400 400' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cg opacity='0.08'%3E%3Crect x='20' y='20' width='360' height='360' rx='30' stroke='%234ffbdf' stroke-width='2'/%3E%3Cpath d='M60 60h280v280H60z' stroke='%234ffbdf' stroke-width='1.5'/%3E%3Ccircle cx='200' cy='200' r='80' stroke='%234ffbdf' stroke-width='1.5'/%3E%3Cpath d='M200 60v40M200 300v40M60 200h40M300 200h40' stroke='%234ffbdf' stroke-width='1.5'/%3E%3C/g%3E%3C/svg%3E");
+            background-size: cover;
+            /* Pastikan pola menutupi seluruh area */
+            z-index: 0;
+            animation: circuitFlow 15s linear infinite;
+            /* Animasi ringan untuk efek hidup */
+        }
+
+        @keyframes circuitFlow {
+            from {
+                background-position: 0% 0%;
+            }
+
+            to {
+                background-position: 100% 100%;
+            }
+        }
+
+
+        .cyber-container {
+            max-width: 480px;
+            /* Gunakan `margin: auto` untuk centering horizontal */
+            margin: 40px auto 0 auto;
+            background: rgba(26, 26, 46, 0.95);
+            border-radius: 18px;
+            box-shadow: 0 0 32px var(--shadow-primary), 0 2px 16px var(--shadow-secondary);
+            padding: 24px 16px 16px 16px;
+            position: relative;
+            z-index: 1;
+            transform: scale(0.98);
+            /* Animasi masuk kontainer */
+            animation: containerPop 0.8s ease-out forwards;
+        }
+
+        @keyframes containerPop {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .cyber-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 18px;
+        }
+
+        .cyber-title {
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            /* Ukuran font responsif */
+            font-weight: 700;
+            color: var(--primary-neon);
+            letter-spacing: 2px;
+            text-shadow: 0 0 8px #4ffbdf99, 0 2px 8px #000a;
+            margin-bottom: 2px;
+            animation: neonGlow 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes neonGlow {
+            from {
+                text-shadow: 0 0 5px var(--primary-neon), 0 0 10px var(--primary-neon), 0 0 15px var(--primary-neon);
+            }
+
+            to {
+                text-shadow: 0 0 10px var(--primary-neon), 0 0 20px var(--primary-neon), 0 0 30px var(--primary-neon);
+            }
+        }
+
+        .cyber-stats {
+            display: flex;
+            flex-wrap: wrap;
+            /* Agar responsif pada layar kecil */
+            justify-content: center;
+            gap: 18px;
+            font-size: 1.1rem;
+            color: var(--text-color);
+            text-shadow: 0 0 4px var(--shadow-primary);
+            font-family: 'Roboto Mono', monospace;
+            /* Font monospasi untuk angka */
+        }
+
+        .cyber-stats span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 8px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 6px;
+            border: 1px solid rgba(79, 251, 223, 0.3);
+            box-shadow: 0 0 5px rgba(79, 251, 223, 0.2);
+        }
+
+        .cyber-grid {
+            display: grid;
+            gap: 12px;
+            justify-content: center;
+            margin: 0 auto 18px auto;
+            transition: grid-template-columns 0.3s ease-in-out;
+            /* Transisi lebih halus */
+        }
+
+        .cyber-card {
+            width: 64px;
+            height: 64px;
+            background: var(--card-bg);
+            border: 1.5px solid var(--card-front-border);
+            border-radius: 12px;
+            box-shadow: 0 0 8px #4ffbdf33;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+            perspective: 1000px;
+            /* Meningkatkan perspektif untuk efek 3D yang lebih baik */
+            transition: box-shadow 0.2s, border-color 0.2s, transform 0.1s;
+            /* Transisi untuk efek klik */
+            will-change: transform;
+            min-width: 60px;
+            min-height: 60px;
+            -ms-user-select: none;
+            -webkit-user-select: none;
+            /* Untuk Safari */
+            -moz-user-select: none;
+            /* Untuk Firefox */
+            user-select: none;
+            /* Untuk IE/Edge */
+        }
+
+        .cyber-card:active {
+            transform: translateY(2px);
+            /* Efek tekan tombol */
+        }
+
+        .cyber-card:hover:not(.flipped):not(.matched) {
+            box-shadow: 0 0 16px var(--shadow-card-hover), 0 0 4px var(--shadow-card-hover-light);
+            border-color: var(--secondary-neon);
+            transform: scale(1.03);
+            /* Sedikit membesar saat hover */
+        }
+
+        .cyber-card .card-inner {
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(.4, 2.2, .6, 1.2), box-shadow 0.2s;
+            /* Kurva transisi lebih "hidup" */
+            transform-style: preserve-3d;
+            position: relative;
+        }
+
+        .cyber-card.flipped .card-inner,
+        .cyber-card.matched .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .cyber-card .card-front,
+        .cyber-card .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            padding: 8px;
+            /* Tambahkan padding agar ikon tidak terlalu mepet tepi */
+            box-sizing: border-box;
+            /* Pastikan padding tidak membuat overflow */
+        }
+
+        .cyber-card .card-front {
+            background: var(--card-bg);
+            color: var(--primary-neon);
+            font-size: 2.2rem;
+            box-shadow: 0 0 8px #4ffbdf33 inset;
+            border: 1px solid rgba(79, 251, 223, 0.2);
+            /* Border halus */
+        }
+
+        .cyber-card .card-back {
+            background: linear-gradient(135deg, var(--card-back-gradient-start) 60%, var(--card-back-gradient-end) 100%);
+            transform: rotateY(180deg);
+            box-shadow: 0 0 12px #4ffbdf55 inset;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(79, 251, 223, 0.2);
+            /* Border halus */
+        }
+
+        .cyber-card .cyber-icon {
+            width: 80%;
+            /* Ikon mengisi lebih banyak ruang kartu */
+            height: 80%;
+            max-width: 48px;
+            /* Batasi ukuran maksimum ikon */
+            max-height: 48px;
+            display: block;
+            stroke: var(--primary-neon);
+            /* Warna ikon dari variabel */
+            stroke-width: 1.5;
+            /* Ketebalan garis ikon */
+            filter: drop-shadow(0 0 4px var(--primary-neon));
+            /* Efek glow ringan pada ikon */
+            transition: stroke 0.2s, filter 0.2s;
+        }
+
+        .cyber-card.matched .cyber-icon {
+            stroke: var(--secondary-neon);
+            /* Warna ikon saat matched */
+            filter: drop-shadow(0 0 6px var(--secondary-neon)) drop-shadow(0 0 10px var(--secondary-neon));
+            animation: matchedGlow 0.8s ease-in-out infinite alternate;
+        }
+
+        @keyframes matchedGlow {
+            from {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            to {
+                transform: scale(1.05);
+                opacity: 0.9;
+            }
+        }
+
+
+        .cyber-message {
+            text-align: center;
+            color: var(--text-color);
+            font-size: 1.2rem;
+            margin: 12px 0 0 0;
+            min-height: 32px;
+            text-shadow: 0 0 8px var(--shadow-primary);
+            font-family: 'Roboto Mono', monospace;
+            /* Font monospasi untuk pesan */
+        }
+
+        .cyber-btn {
+            background: linear-gradient(90deg, var(--primary-neon) 0%, var(--secondary-neon) 100%);
+            color: var(--card-bg);
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            padding: 10px 24px;
+            /* Padding lebih besar */
+            margin: 10px auto 0 auto;
+            display: block;
+            box-shadow: 0 0 10px #4ffbdf99, 0 0 20px rgba(79, 251, 223, 0.3);
+            /* Shadow lebih kuat */
+            cursor: pointer;
+            transition: background 0.3s ease, color 0.3s ease, transform 0.1s;
+            /* Transisi lebih halus */
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .cyber-btn:hover {
+            background: linear-gradient(90deg, var(--secondary-neon) 0%, var(--primary-neon) 100%);
+            color: #111;
+            /* Warna teks lebih gelap saat hover */
+            box-shadow: 0 0 15px var(--secondary-neon), 0 0 25px rgba(0, 255, 247, 0.4);
+            transform: translateY(-2px);
+            /* Efek mengangkat saat hover */
+        }
+
+        .cyber-btn:active {
+            transform: translateY(1px);
+            /* Efek tekan tombol */
+        }
+
+        /* Media Queries untuk responsivitas */
+        @media (max-width: 600px) {
+            .cyber-container {
+                max-width: 95vw;
+                padding: 15px 15px 10px 15px;
+            }
+
+            .cyber-card {
+                width: 20vw;
+                height: 20vw;
+                min-width: 55px;
+                min-height: 55px;
+            }
+
+            .cyber-card .cyber-icon {
+                max-width: 32px;
+                max-height: 32px;
+            }
+
+            .cyber-title {
+                font-size: 2rem;
+            }
+
+            .cyber-stats {
+                font-size: 1rem;
+                gap: 12px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .cyber-card {
+                width: 22vw;
+                height: 22vw;
+                min-width: 50px;
+                min-height: 50px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="cyber-container">
+        <div class="cyber-header">
+            <h1 class="cyber-title">CYBER MEMORY</h1> <div class="cyber-stats">
+                <span id="cyber-timer" aria-label="Waktu Tersisa">⏱️ 00:00</span>
+                <span id="cyber-score" aria-label="Skor">⭐ 0</span>
+                <span id="cyber-mistake" aria-label="Kesalahan">❌ 0</span>
+                <span id="cyber-level" aria-label="Level Saat Ini">LEVEL 1</span>
+            </div>
+        </div>
+        <div id="cyber-grid" class="cyber-grid" role="grid" aria-label="Papan Permainan Memori"></div>
+        <p class="cyber-message" id="cyber-message" aria-live="polite"></p>
+        <button class="cyber-btn" id="cyber-restart" style="display:none;" aria-label="Mulai Ulang Permainan">Restart
+            Game</button>
+    </div>
+    <script>
+        /* ====== CYBER MEMORY: JS ====== */
+
+        // --- Tone.js (minified, only core synth & player, no external URL) ---
+        // Penjelasan: Ini adalah implementasi synth minimal. Untuk suara yang lebih kaya,
+        // pertimbangkan library seperti Howler.js atau Tone.js versi lengkap jika ukuran bukan masalah besar.
+        class SimpleSynth {
+            constructor() {
+                this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+                this.gain = this.ctx.createGain();
+                this.gain.gain.value = 0.08; // Volume sedikit dikurangi
+                this.gain.connect(this.ctx.destination);
+            }
+
+            play(freq, dur = 0.18, type = 'triangle', volume = 1) {
+                if (this.ctx.state === 'suspended') {
+                    this.ctx.resume(); // Pastikan AudioContext aktif (untuk autostart di browser)
+                }
+                const now = this.ctx.currentTime;
+                const osc = this.ctx.createOscillator();
+                osc.type = type;
+                osc.frequency.value = freq;
+
+                const gainNode = this.ctx.createGain();
+                gainNode.gain.value = volume;
+                osc.connect(gainNode);
+                gainNode.connect(this.gain);
+
+                osc.start(now);
+                // Tambahkan fade out untuk suara yang lebih halus
+                gainNode.gain.exponentialRampToValueAtTime(0.001, now + dur + 0.1);
+                osc.stop(now + dur + 0.1);
+                osc.onended = () => {
+                    osc.disconnect();
+                    gainNode.disconnect();
+                };
+            }
+        }
+        const synth = new SimpleSynth();
+
+        // --- Game Config ---
+        const gameConfig = {
+            levels: [
+                { grid: [4, 4], time: 60, pairs: 8 },
+                { grid: [4, 5], time: 75, pairs: 10 }, // Waktu lebih fleksibel untuk level lebih tinggi
+                { grid: [5, 6], time: 100, pairs: 15 },
+                { grid: [6, 6], time: 120, pairs: 18 },
+            ],
+            // Ikon-ikon telah diperiksa dan disederhanakan agar tidak ada duplikasi nama.
+            // Gunakan hanya ikon yang unik dan relevan.
+            // Saya juga menyertakan ikon-ikon yang lebih "abstrak" atau geometris untuk kesan modern.
+            icons: [
+                'cpu', 'circuit', 'robot', 'binary', 'chip', 'wifi', 'cloud', 'shield', 'bug', 'gear', 'bolt', 'ai',
+                'code', 'lock', 'antenna', 'vr', 'battery', 'server', 'signal', 'folder', 'eye', 'rocket', 'cube',
+                'satellite', 'browser', 'database', 'fingerprint', 'key', 'mouse', 'phone', 'usb', 'watch'
+            ],
+            scoring: {
+                match: 100,
+                mismatch: -20,
+                timeBonus: 10 // per detik sisa
+            }
+        };
+
+        // --- SVG ICONS (Dibuat lebih modern dan hidup) ---
+        // Penting: Pastikan SVG Path menggunakan stroke dan fill sesuai tema.
+        // Tambahkan elemen <g> dengan class untuk styling yang lebih mudah
+        // Efek glowing dapat diatur via CSS filter: drop-shadow
+        const iconSVGs = {
+            cpu: `<svg class="cyber-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 9h6v6H9z"/><path d="M4 9v6M20 9v6M9 4h6M9 20h6"/></svg>`,
+            circuit: `<svg class="cyber-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="6"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><circle cx="12" cy="2" r="1.5"/><circle cx="12" cy="22" r="1.5"/><circle cx="2" cy="12" r="1.5"/><circle cx="22" cy="12" r="1.5"/></svg>`,
+            robot: `<svg class="cyber-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="8" width="12" height="8" rx="3"/><circle cx="9" cy="12" r="1"/><circle cx="15" cy="12" r="1"/><path d="M12 8V4M8 4h8"/></svg>`,
+            binary: `<svg class="cyber-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><text x="2" y="12" font-size="8" font-family="Roboto Mono" fill="currentColor">01</text><text x="14" y="20" font-size="8" font-family="Roboto Mono" fill="currentColor">10</text></svg>`,
+            chip: `<svg class="cyber-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="7" width="16" height="10" rx="2"/><path d="M9 7V4M15 7V4M9 20v-3M15 20v-3M4 12H1M23 12h-3"/></svg>`,
+            wifi: `<svg class="cyber-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8.82A16 16 0 0 1 12 4a16 16 0 0 1 10 4.82"/><path d="M5 13a10 10 0 0 1 14 0"/><circle cx="12" cy="20" r="1.5"/></svg>`,
+            cloud: `<svg class="cyber-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18a6 6 0 1 1 12 0H6z"/><path d="M6 18a6 6 0 0 1 0-12h12a6 6 0 0 1 0 12z"/></svg>`,
+            shield: `<svg class="cyber-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l7 4v6c0 5-3.5 9.74-7 10-3.5-.26-7-5-7-10V6z"/></svg>`,
+            bug: `<svg class="cyber-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M4 19v-2a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v2"/><path d="M12 2v2M12 20v2M4 6l2 2M20 6l-2 2"/></svg>`,
+            gear: `<svg class="cyber-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.09a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.09a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.09a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>`,
+            bolt: `<svg class="cyber-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`,
+            ai: `<svg class="cyber-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="4"/><circle cx="12" cy="12" r="3"/><path d="M8 12h8"/></svg>`,
+            code: `<svg class="cyber-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`,
+            lock: `<svg class="cyber-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="8" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`,
+            antenna: `<svg class="cyber-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="18" r="2"/><path d="M12 16V4M8 8l4-4 4 4"/></svg>`,
+            vr: `<svg class="cyber-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="10" rx="5"/><path d="M7 10v4M17 10v4"/></svg>`,
+            battery: `<svg class="cyber-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="18" height="10" rx="3"/><rect x="20" y="10" width="2" height="4" rx="1"/></svg>`,
+            server: `<svg class="cyber-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="6" rx="2"/><rect x="3" y="14" width="18" height="6" rx="2"/><path d="M7 8h.01M7 18h.01"/></svg>`,
+            signal: `<svg class="cyber-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h.01M7 16h.01M12 12h.01M17 8h.01M22 4h.01"/></svg>`,
+            folder: `<svg class="cyber-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>`,
+            eye: `<svg class="cyber-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/></svg>`,
+            rocket: `<svg class="cyber-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13a8 8 0 0 1 16 0v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-5z"/><path d="M12 2v4"/><path d="M9 22h6"/></svg>`,
+            cube: `<svg class="cyber-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M7 7l5-5 5 5"/></svg>`,
+            satellite: `<svg class="cyber-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M2 12h2M20 12h2M12 2v2M12 20v2"/></svg>`,
+            browser: `<svg class="cyber-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 8h18"/></svg>`,
+            database: `<svg class="cyber-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.66 3.58 3 8 3s8-1.34 8-3V6"/></svg>`,
+            fingerprint: `<svg class="cyber-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12v2a4 4 0 0 1-4 4"/><path d="M12 12v-2a4 4 0 0 1 4-4"/><circle cx="12" cy="12" r="10"/></svg>`,
+            key: `<svg class="cyber-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7" cy="17" r="3"/><path d="M7 17v-7a5 5 0 0 1 10 0v7"/></svg>`,
+            mouse: `<svg class="cyber-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="5"/><path d="M12 6v4"/></svg>`,
+            phone: `<svg class="cyber-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="5"/><path d="M12 18h.01"/></svg>`,
+            usb: `<svg class="cyber-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="8" rx="2"/><path d="M12 10v10"/><circle cx="12" cy="22" r="1.5"/></svg>`,
+            watch: `<svg class="cyber-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7"/><rect x="9" y="2" width="6" height="4" rx="2"/><rect x="9" y="18" width="6" height="4" rx="2"/></svg>`,
+        };
+
+
+        // --- Game State ---
+        let state = {
+            level: 0,
+            score: 0,
+            mistakes: 0,
+            timeLeft: 0,
+            timer: null,
+            cards: [],
+            flipped: [],
+            matched: 0,
+            lock: false,
+        };
+
+        // --- DOM Elements ---
+        const gridEl = document.getElementById('cyber-grid');
+        const timerEl = document.getElementById('cyber-timer');
+        const scoreEl = document.getElementById('cyber-score');
+        const mistakeEl = document.getElementById('cyber-mistake');
+        const levelEl = document.getElementById('cyber-level');
+        const msgEl = document.getElementById('cyber-message');
+        const restartBtn = document.getElementById('cyber-restart');
+
+        // --- Utility Functions ---
+        function shuffle(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function pad(n) {
+            return n < 10 ? '0' + n : n;
+        }
+
+        // --- Game Initialization ---
+        function initGame(levelIdx = 0) {
+            // Hentikan timer yang sedang berjalan untuk menghindari duplikasi
+            if (state.timer) clearInterval(state.timer);
+
+            // Reset state game
+            state = {
+                level: levelIdx,
+                score: 0,
+                mistakes: 0,
+                timeLeft: gameConfig.levels[levelIdx].time,
+                timer: null,
+                cards: [],
+                flipped: [],
+                matched: 0,
+                lock: true, // Lock input saat kartu di-reveal di awal
+            };
+
+            // Update UI game stats
+            scoreEl.textContent = '⭐ 0';
+            mistakeEl.textContent = '❌ 0';
+            levelEl.textContent = 'LEVEL ' + (levelIdx + 1);
+            msgEl.textContent = '';
+            restartBtn.style.display = 'none';
+
+            // Siapkan kartu-kartu
+            const { pairs, grid } = gameConfig.levels[levelIdx];
+            // Pastikan kita tidak meminta lebih banyak ikon daripada yang tersedia
+            const availableIcons = gameConfig.icons.slice();
+            if (pairs > availableIcons.length) {
+                console.warn(`Tidak cukup ikon unik untuk ${pairs} pasangan. Menggunakan semua ikon yang tersedia.`);
+                // Duplikasi ikon jika tidak cukup untuk mengisi semua pasangan,
+                // ini dapat membuat game lebih mudah tapi tetap bisa dimainkan
+                let tempIcons = [];
+                while (tempIcons.length < pairs) {
+                    tempIcons = tempIcons.concat(shuffle(availableIcons));
+                }
+                icons = tempIcons.slice(0, pairs);
+            } else {
+                icons = shuffle(availableIcons).slice(0, pairs);
+            }
+
+            let cardIcons = shuffle([...icons, ...icons]);
+
+            state.cards = cardIcons.map((icon, i) => ({
+                id: i,
+                icon,
+                flipped: false,
+                matched: false
+            }));
+
+            // Render grid dan kartu-kartu
+            gridEl.innerHTML = '';
+            gridEl.style.gridTemplateColumns = `repeat(${grid[0]}, 1fr)`; // grid[0] adalah kolom
+            gridEl.style.gridTemplateRows = `repeat(${grid[1]}, 1fr)`; // grid[1] adalah baris
+
+            state.cards.forEach(card => {
+                const cardEl = document.createElement('div');
+                cardEl.className = 'cyber-card flipped'; // Semua kartu flipped di awal
+                cardEl.dataset.id = card.id;
+                cardEl.setAttribute('role', 'button'); // Peran untuk aksesibilitas
+                cardEl.setAttribute('aria-label', `Kartu memori tersembunyi`); // Label awal
+
+                cardEl.innerHTML = `
+                    <div class="card-inner">
+                        <div class="card-front"></div>
+                        <div class="card-back">${iconSVGs[card.icon] || iconSVGs['cpu']}</div>
+                    </div>
+                `;
+                gridEl.appendChild(cardEl);
+            });
+
+            // Durasi reveal awal
+            const revealDuration = Math.min(pairs * 200, 5000); // Durasi reveal proporsional tapi max 5s
+
+            // Tampilkan semua kartu sebentar, lalu sembunyikan dan mulai game
+            setTimeout(() => {
+                const cardEls = gridEl.querySelectorAll('.cyber-card');
+                cardEls.forEach((el, idx) => {
+                    el.classList.remove('flipped');
+                    state.cards[idx].flipped = false;
+                    el.setAttribute('aria-label', `Kartu memori`); // Perbarui label setelah disembunyikan
+                });
+                state.lock = false; // Buka input setelah reveal selesai
+
+                // Mulai timer setelah reveal selesai
+                updateTimer();
+                state.timer = setInterval(() => {
+                    state.timeLeft--;
+                    updateTimer();
+                    if (state.timeLeft <= 0) {
+                        endGame(false); // Game over jika waktu habis
+                    }
+                }, 1000);
+            }, revealDuration);
+        }
+
+        // --- Update UI Functions ---
+        function updateTimer() {
+            timerEl.textContent = `⏱️ ${pad(Math.floor(state.timeLeft / 60))}:${pad(state.timeLeft % 60)}`;
+            timerEl.setAttribute('aria-label', `Waktu Tersisa: ${Math.floor(state.timeLeft / 60)} menit ${state.timeLeft % 60} detik`);
+        }
+
+        function updateScore(delta) {
+            state.score += delta;
+            if (state.score < 0) state.score = 0; // Skor tidak boleh negatif
+            scoreEl.textContent = `⭐ ${state.score}`;
+            scoreEl.setAttribute('aria-label', `Skor Anda: ${state.score}`);
+        }
+
+        function updateMistake() {
+            state.mistakes++;
+            mistakeEl.textContent = `❌ ${state.mistakes}`;
+            mistakeEl.setAttribute('aria-label', `Jumlah Kesalahan: ${state.mistakes}`);
+        }
+
+        // --- Card Click Handler ---
+        gridEl.addEventListener('click', function (e) {
+            const cardEl = e.target.closest('.cyber-card');
+
+            // Cek jika klik valid
+            if (!cardEl || state.lock) return;
+
+            const id = +cardEl.dataset.id;
+            const card = state.cards[id];
+
+            // Cek jika kartu sudah flipped atau matched
+            if (card.flipped || card.matched) return;
+
+            flipCard(cardEl, card);
+            synth.play(440, 0.12, 'triangle', 0.8); // Suara klik kartu
+            state.flipped.push({ card, cardEl });
+            card.flipped = true;
+            cardEl.setAttribute('aria-label', `Kartu ikon ${card.icon} terbuka`);
+
+            if (state.flipped.length === 2) {
+                state.lock = true; // Kunci input saat 2 kartu terbuka
+                setTimeout(() => checkMatch(), 700); // Beri waktu untuk melihat kartu
+            }
+        });
+
+        // --- Flip Card Animation ---
+        function flipCard(cardEl, card) {
+            cardEl.classList.add('flipped');
+        }
+
+        function unflipCard(cardEl, card) {
+            cardEl.classList.remove('flipped');
+            card.flipped = false;
+            cardEl.setAttribute('aria-label', `Kartu memori tertutup`);
+        }
+
+        // --- Check Match Logic ---
+        function checkMatch() {
+            const [{ card: c1, cardEl: el1 }, { card: c2, cardEl: el2 }] = state.flipped;
+
+            if (c1.icon === c2.icon) {
+                // Kartu cocok
+                c1.matched = c2.matched = true;
+                el1.classList.add('matched');
+                el2.classList.add('matched');
+                el1.setAttribute('aria-label', `Kartu ikon ${c1.icon} cocok`);
+                el2.setAttribute('aria-label', `Kartu ikon ${c2.icon} cocok`);
+                el1.tabIndex = -1; // Nonaktifkan fokus setelah dicocokkan
+                el2.tabIndex = -1;
+
+                updateScore(gameConfig.scoring.match);
+                state.matched += 2;
+                synth.play(880, 0.18, 'sine', 1.2); // Suara match
+                msgEl.textContent = 'Match!';
+                setTimeout(() => {
+                    msgEl.textContent = '';
+                }, 700);
+
+                if (state.matched === state.cards.length) {
+                    // Semua kartu cocok, game selesai
+                    endGame(true);
+                }
+            } else {
+                // Kartu tidak cocok
+                updateScore(gameConfig.scoring.mismatch);
+                updateMistake();
+                synth.play(220, 0.18, 'square', 0.8); // Suara mismatch
+                msgEl.textContent = 'Tidak cocok!';
+                setTimeout(() => {
+                    unflipCard(el1, c1);
+                    unflipCard(el2, c2);
+                    msgEl.textContent = '';
+                }, 900); // Beri waktu lebih lama sebelum unflip
+            }
+
+            state.flipped = []; // Reset kartu yang di-flipped
+            setTimeout(() => {
+                state.lock = false; // Buka input setelah animasi
+            }, 920);
+        }
+
+        // --- End Game ---
+        function endGame(win) {
+            clearInterval(state.timer);
+            state.lock = true; // Kunci input setelah game berakhir
+
+            if (win) {
+                const bonus = state.timeLeft * gameConfig.scoring.timeBonus;
+                updateScore(bonus);
+                synth.play(1040, 0.3, 'triangle', 1.5); // Suara kemenangan
+                synth.play(1560, 0.2, 'triangle', 1.0);
+
+                if (state.level < gameConfig.levels.length - 1) {
+                    msgEl.textContent = `Level Clear! +${bonus} bonus. Skor: ${state.score}.`;
+                    restartBtn.textContent = 'Next Level';
+                    restartBtn.style.display = 'block';
+                } else {
+                    msgEl.textContent = `SELAMAT! Anda menyelesaikan semua level! Total Skor: ${state.score}.`;
+                    restartBtn.textContent = 'Main Lagi';
+                    restartBtn.style.display = 'block';
+                }
+            } else {
+                synth.play(120, 0.5, 'sawtooth', 0.9); // Suara kalah
+                msgEl.textContent = 'Waktu Habis! Skor Akhir: ' + state.score;
+                restartBtn.textContent = 'Coba Lagi';
+                restartBtn.style.display = 'block';
+            }
+            restartBtn.focus(); // Fokuskan tombol restart untuk aksesibilitas
+        }
+
+        // --- Restart Button Event Listener ---
+        restartBtn.addEventListener('click', function () {
+            // Jika berhasil menyelesaikan level dan masih ada level berikutnya
+            if (state.matched === state.cards.length && state.level < gameConfig.levels.length - 1) {
+                initGame(state.level + 1); // Lanjut ke level berikutnya
+            } else {
+                initGame(0); // Mulai dari level 1 lagi
+            }
+        });
+
+        // --- Start Game on DOM Content Loaded ---
+        window.addEventListener('DOMContentLoaded', () => {
+            initGame(0); // Inisialisasi game pada level pertama saat halaman dimuat
+        });
+    </script>
+</body>
+
+</html>
